@@ -1,0 +1,6 @@
+applications:
+- name: jobSeekingNode
+  random-route: true
+  buildpacks:
+    - nodejs_buildpack
+  command: node server.js
