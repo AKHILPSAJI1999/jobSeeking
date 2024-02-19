@@ -1,0 +1,78 @@
+---
+_schema-version: '3.1'
+ID: jobSeekingReact
+version: 1.0.0
+description: "A simple CAP project."
+parameters: 
+  enable-parallel-deployments: true
+  deploy_mode: html5-repo
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm --prefix ./app install ./app 
+        - npm run build --prefix ./app
+modules:
+ # --------------------- HTML5DEPLOYER MODULE -----------------
+ - name: job-hmtl5-deployer
+ # ------------------------------------------------------------
+   type: com.sap.html5.application-content
+   path: html5Deployer
+   requires:
+    - name: job-html5-host
+   build-parameters:
+    requires:
+      - name: job-app
+        artifacts:
+          - './*'
+        target-path: resources/app
+
+ # --------------------- REACT APP MODULE ---------------------
+ - name: job-app
+ # ------------------------------------------------------------
+   type: html5
+   path: app
+   build-parameters:
+      supported-platforms: []
+      build-result: build
+ # --------------------- APPROUTER MODULE ---------------------
+ - name: job-approuter
+ # ------------------------------------------------------------
+   type: approuter.nodejs
+   path: approuter
+   requires:
+    - name: job-html5-runtime
+    - name: job-xsuaa
+    - name: job-destination
+resources:
+# --------------------- HTML5 Runtime ----------------------
+ - name: job-html5-runtime
+ # ------------------------------------------------------------
+   parameters:
+     service-name: job-html5-runtime
+     service-plan: app-runtime
+     service: html5-apps-repo
+   type: org.cloudfoundry.managed-service
+
+# --------------------- HTML5 Host -------------------------
+ - name: job-html5-host
+# ------------------------------------------------------------
+   parameters:
+     service-name: job-html5-host
+     service-plan: app-host
+     service: html5-apps-repo
+   type: org.cloudfoundry.managed-service
+# --------------------- XSUAA Service ---------------------
+ - name: job-xsuaa
+# ------------------------------------------------------------
+   parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+   type: org.cloudfoundry.managed-service
+# --------------------- DESTINATION Service ---------------------
+ - name: job-destination
+# ------------------------------------------------------------
+   parameters:
+      service: destination
+   type: org.cloudfoundry.managed-service

@@ -1,0 +1,17 @@
+{
+    "welcomeFile": "/index.html",
+    "authenticationMethod": "xsuaa",
+    "routes": [
+        {
+            "source": "/JOB_SERVICES/(.*)",
+            "target": "$1",
+            "destination": "JOB_SERVICES",
+            "authenticationType": "xsuaa"
+        },
+        {
+            "source": "^(.*)",
+            "target": "jobseekingreact/$1",
+            "service": "html5-apps-repo-rt"
+        }
+    ]
+}

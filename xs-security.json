@@ -1,0 +1,31 @@
+{
+  "xsappname": "job-xsuaa",
+  "tenant-mode": "dedicated",
+  "description": "Security profile of called application",
+  "scopes": [
+    {
+      "name": "admin",
+      "description": "admin"
+    },
+    {
+      "name": "user",
+      "description": "user"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "JOB_ADMIN",
+      "description": "JOB_ADMIN",
+      "scope-references": [
+        "admin"
+      ]
+    },
+    {
+      "name": "JOB_USER",
+      "description": "JOB_USER",
+      "scope-references": [
+        "user"
+      ]
+    }
+  ]
+}
