@@ -8,6 +8,10 @@
       "description": "admin"
     },
     {
+      "name": "uaa.user",
+      "description": "UAA"
+    },
+    {
       "name": "job.user",
       "description": "user"
     }
@@ -25,6 +29,13 @@
       "description": "JOB_USER",
       "scope-references": [
         "job.user"
+      ]
+    },
+    {
+      "name": "Token_Exchange",
+      "description": "UAA",
+      "scope-references": [
+        "uaa.user"
       ]
     }
   ]
