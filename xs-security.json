@@ -4,11 +4,11 @@
   "description": "Security profile of called application",
   "scopes": [
     {
-      "name": "admin",
+      "name": "job.admin",
       "description": "admin"
     },
     {
-      "name": "user",
+      "name": "job.user",
       "description": "user"
     }
   ],
@@ -17,14 +17,14 @@
       "name": "JOB_ADMIN",
       "description": "JOB_ADMIN",
       "scope-references": [
-        "admin"
+        "job.admin"
       ]
     },
     {
       "name": "JOB_USER",
       "description": "JOB_USER",
       "scope-references": [
-        "user"
+        "job.user"
       ]
     }
   ]
