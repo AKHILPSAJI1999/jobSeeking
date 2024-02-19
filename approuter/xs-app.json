@@ -1,12 +1,13 @@
 {
     "welcomeFile": "/index.html",
-    "authenticationMethod": "xsuaa",
+    "authenticationMethod": "route",
     "routes": [
         {
             "source": "/JOB_SERVICES/(.*)",
             "target": "$1",
             "destination": "JOB_SERVICES",
-            "authenticationType": "xsuaa"
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
         },
         {
             "source": "^(.*)",
