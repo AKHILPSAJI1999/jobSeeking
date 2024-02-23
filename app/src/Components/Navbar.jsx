@@ -22,7 +22,7 @@ const Navbar = (props) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { sm: "block", xs: "none" } }}>
+                    <Typography fontFamily={'fantasy'} variant="h6" component="div" sx={{ flexGrow: 1, display: { sm: "block", xs: "none" } }}>
                         JOB SEEKING APPLICATION
                     </Typography>
                     {
