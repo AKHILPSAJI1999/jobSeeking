@@ -8,7 +8,7 @@ import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 const vertical = 'top';
 const horizontal = 'center';
-const Adminjobs = () => {
+const Adminjobs = (props) => {
     const [jobs, setJobs] = useState();
     const [initialJobs, setInitialJobs] = useState();
     const [error, setError] = useState(false);
@@ -22,7 +22,7 @@ const Adminjobs = () => {
     const fetchAdminJobs = useCallback(async () => {
         // await axios.get(`${backendurl}/jobs/email`, {
         //     headers: {
-        //         Authorization: "bearer eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vZDM3N2Q2MDZ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL3Rva2VuX2tleXMiLCJraWQiOiJkZWZhdWx0LWp3dC1rZXktYjNmM2Y3N2FlNiIsInR5cCI6IkpXVCIsImppZCI6ICJpOWZINjdlT2ljWWJ4bzFQQVV1VFRyd1lMUjRZOHVZcDBZd3hkTTdTWjA4PSJ9.eyJqdGkiOiI5ZTQ2NGE0Yjc5YjI0ODBhOTZhZTlmZGYwOGYzNGIzMSIsImV4dF9hdHRyIjp7ImVuaGFuY2VyIjoiWFNVQUEiLCJzdWJhY2NvdW50aWQiOiI5ODBiNzkzNC01Y2UzLTRmNjktOTliYi0xZDg3ODVlZWQxMGIiLCJ6ZG4iOiJkMzc3ZDYwNnRyaWFsIn0sInhzLnVzZXIuYXR0cmlidXRlcyI6e30sInhzLnN5c3RlbS5hdHRyaWJ1dGVzIjp7InhzLnJvbGVjb2xsZWN0aW9ucyI6WyJKT0JTRUVLSU5HX0FETUlOIiwiU3ViYWNjb3VudCBBZG1pbmlzdHJhdG9yIl19LCJnaXZlbl9uYW1lIjoiQWtoaWwiLCJmYW1pbHlfbmFtZSI6IlAgU2FqaSIsInN1YiI6IjAxYTVjYWM3LTkyYTEtNGE5Ni1iNWVhLTVkNTcxMThiM2Q1MSIsInNjb3BlIjpbIm9wZW5pZCIsInVhYS51c2VyIl0sImNsaWVudF9pZCI6InNiLWpvYi14c3VhYSF0MjQ0NzUyIiwiY2lkIjoic2Itam9iLXhzdWFhIXQyNDQ3NTIiLCJhenAiOiJzYi1qb2IteHN1YWEhdDI0NDc1MiIsInJldm9jYWJsZSI6dHJ1ZSwiZ3JhbnRfdHlwZSI6InVzZXJfdG9rZW4iLCJ1c2VyX2lkIjoiMDFhNWNhYzctOTJhMS00YTk2LWI1ZWEtNWQ1NzExOGIzZDUxIiwib3JpZ2luIjoic2FwLmRlZmF1bHQiLCJ1c2VyX25hbWUiOiJha2hpbHBzYWppMTk5OUBnbWFpbC5jb20iLCJlbWFpbCI6ImFraGlscHNhamkxOTk5QGdtYWlsLmNvbSIsImF1dGhfdGltZSI6MTcwODY3ODk1MiwicmV2X3NpZyI6IjFmMTJhZTc0IiwiaWF0IjoxNzA4Njc4OTUyLCJleHAiOjE3MDg3NjUzNTIsImlzcyI6Imh0dHBzOi8vZDM3N2Q2MDZ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL29hdXRoL3Rva2VuIiwiemlkIjoiOTgwYjc5MzQtNWNlMy00ZjY5LTk5YmItMWQ4Nzg1ZWVkMTBiIiwiYXVkIjpbXX0.owgd5fsMgTjqYH3fsIyeCZEBxYGddJ_hkeLEy8GstXzkVji9O5UIZwoFBCHmwTsL4eLsHm5c6lMVbsNcDP7ZQZBolGy_K9MvyKTxg4FRErsQGNi7fsGycDlXsO2eOVL4tfeYMb59O-OcBxUQvOUQlN4AYx582fvnardj_FrciYBVhWJ8LCJSx1aYq_jR2x8bJuhRaGkOjSg-R2v9HD89abdM8kFY1qu6jCjyzoLAJrAndrEt5j0rxFLp-P4VUDgiadpMekkjMtlJE1eMIQB_vxTfHoPgTbFhADiuqI2QnZRhAg51kO7dhxXXme0RNMAJM1RPPP64Z6YDgJJ6HrGICA"
+        //         Authorization: "bearer eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vZDM3N2Q2MDZ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL3Rva2VuX2tleXMiLCJraWQiOiJkZWZhdWx0LWp3dC1rZXktYjNmM2Y3N2FlNiIsInR5cCI6IkpXVCIsImppZCI6ICI1SUFnRFMwN09LemdTNENxVzFTRHBaM3NRcVorSEpjK0x4azdITkNHRTRnPSJ9.eyJqdGkiOiI4NjA2NTc2OWYxMmU0OTkxODcxMDk4NWRjNWZjYjZjYSIsImV4dF9hdHRyIjp7ImVuaGFuY2VyIjoiWFNVQUEiLCJzdWJhY2NvdW50aWQiOiI5ODBiNzkzNC01Y2UzLTRmNjktOTliYi0xZDg3ODVlZWQxMGIiLCJ6ZG4iOiJkMzc3ZDYwNnRyaWFsIn0sInhzLnVzZXIuYXR0cmlidXRlcyI6e30sInhzLnN5c3RlbS5hdHRyaWJ1dGVzIjp7InhzLnJvbGVjb2xsZWN0aW9ucyI6WyJKT0JTRUVLSU5HX0FETUlOIiwiU3ViYWNjb3VudCBBZG1pbmlzdHJhdG9yIl19LCJnaXZlbl9uYW1lIjoiQWtoaWwiLCJmYW1pbHlfbmFtZSI6IlAgU2FqaSIsInN1YiI6IjAxYTVjYWM3LTkyYTEtNGE5Ni1iNWVhLTVkNTcxMThiM2Q1MSIsInNjb3BlIjpbIm9wZW5pZCIsInVhYS51c2VyIl0sImNsaWVudF9pZCI6InNiLWpvYi14c3VhYSF0MjQ0NzUyIiwiY2lkIjoic2Itam9iLXhzdWFhIXQyNDQ3NTIiLCJhenAiOiJzYi1qb2IteHN1YWEhdDI0NDc1MiIsInJldm9jYWJsZSI6dHJ1ZSwiZ3JhbnRfdHlwZSI6InVzZXJfdG9rZW4iLCJ1c2VyX2lkIjoiMDFhNWNhYzctOTJhMS00YTk2LWI1ZWEtNWQ1NzExOGIzZDUxIiwib3JpZ2luIjoic2FwLmRlZmF1bHQiLCJ1c2VyX25hbWUiOiJha2hpbHBzYWppMTk5OUBnbWFpbC5jb20iLCJlbWFpbCI6ImFraGlscHNhamkxOTk5QGdtYWlsLmNvbSIsImF1dGhfdGltZSI6MTcwOTAxMzkwMCwicmV2X3NpZyI6IjFmMTJhZTc0IiwiaWF0IjoxNzA5MDEzOTAxLCJleHAiOjE3MDkxMDAzMDEsImlzcyI6Imh0dHBzOi8vZDM3N2Q2MDZ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL29hdXRoL3Rva2VuIiwiemlkIjoiOTgwYjc5MzQtNWNlMy00ZjY5LTk5YmItMWQ4Nzg1ZWVkMTBiIiwiYXVkIjpbXX0.JqjoqK5C5HQ4kk0m46jkYzm5TZ-hMQiyjkdGglX-GR7C12xuuD-I8xsyoV7KC8tr91EzNrU7YaljE1CX8Kv7WSgKAYfld2n8i9nSklG_PsEhNVZNc79Qt1ChtsLgPWBtJtktJNhv7exNEA386BaQ4XhwxWEkLGnfTFVJW-HwWxGHEjqKeCCF-WdezMpEKDYFFIYygrO25M01bbazlPwOWZmlGSC5S5nSh2TJXyw1ZsfcVimEz0WcUmyzhkP5rwcAFyFhIL6re-BIXn9d62Ctt0ydRNOgZcocqqhmoPFCP1_pk3RqHPeIOgpm5doPTWT8AQYBwGVUeTd1NbqmA2C1fw"
         //     }
         // }).then((res) => { setJobs(res.data.data); setInitialJobs(res.data.data); setTextFieldState(Array(res.data.data.length).fill(true)); setTextDeleteFieldState(Array(res.data.data.length).fill(true)); }).catch((e) => { console.log(e); setError(true); });
         await axios.get(`${backendurl}/jobs/email`).then((res) => { setJobs(res.data.data); setInitialJobs(res.data.data); setTextFieldState(Array(res.data.data.length).fill(true)); setTextDeleteFieldState(Array(res.data.data.length).fill(true)); }).catch((e) => { console.log(e); setError(true); });
@@ -50,7 +50,7 @@ const Adminjobs = () => {
         setLoading(true);
         // await axios.put(`${backendurl}/jobs/${jobs[ind]._id}`, jobs[ind], {
         //     headers: {
-        //         Authorization: "bearer eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vZDM3N2Q2MDZ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL3Rva2VuX2tleXMiLCJraWQiOiJkZWZhdWx0LWp3dC1rZXktYjNmM2Y3N2FlNiIsInR5cCI6IkpXVCIsImppZCI6ICJpOWZINjdlT2ljWWJ4bzFQQVV1VFRyd1lMUjRZOHVZcDBZd3hkTTdTWjA4PSJ9.eyJqdGkiOiI5ZTQ2NGE0Yjc5YjI0ODBhOTZhZTlmZGYwOGYzNGIzMSIsImV4dF9hdHRyIjp7ImVuaGFuY2VyIjoiWFNVQUEiLCJzdWJhY2NvdW50aWQiOiI5ODBiNzkzNC01Y2UzLTRmNjktOTliYi0xZDg3ODVlZWQxMGIiLCJ6ZG4iOiJkMzc3ZDYwNnRyaWFsIn0sInhzLnVzZXIuYXR0cmlidXRlcyI6e30sInhzLnN5c3RlbS5hdHRyaWJ1dGVzIjp7InhzLnJvbGVjb2xsZWN0aW9ucyI6WyJKT0JTRUVLSU5HX0FETUlOIiwiU3ViYWNjb3VudCBBZG1pbmlzdHJhdG9yIl19LCJnaXZlbl9uYW1lIjoiQWtoaWwiLCJmYW1pbHlfbmFtZSI6IlAgU2FqaSIsInN1YiI6IjAxYTVjYWM3LTkyYTEtNGE5Ni1iNWVhLTVkNTcxMThiM2Q1MSIsInNjb3BlIjpbIm9wZW5pZCIsInVhYS51c2VyIl0sImNsaWVudF9pZCI6InNiLWpvYi14c3VhYSF0MjQ0NzUyIiwiY2lkIjoic2Itam9iLXhzdWFhIXQyNDQ3NTIiLCJhenAiOiJzYi1qb2IteHN1YWEhdDI0NDc1MiIsInJldm9jYWJsZSI6dHJ1ZSwiZ3JhbnRfdHlwZSI6InVzZXJfdG9rZW4iLCJ1c2VyX2lkIjoiMDFhNWNhYzctOTJhMS00YTk2LWI1ZWEtNWQ1NzExOGIzZDUxIiwib3JpZ2luIjoic2FwLmRlZmF1bHQiLCJ1c2VyX25hbWUiOiJha2hpbHBzYWppMTk5OUBnbWFpbC5jb20iLCJlbWFpbCI6ImFraGlscHNhamkxOTk5QGdtYWlsLmNvbSIsImF1dGhfdGltZSI6MTcwODY3ODk1MiwicmV2X3NpZyI6IjFmMTJhZTc0IiwiaWF0IjoxNzA4Njc4OTUyLCJleHAiOjE3MDg3NjUzNTIsImlzcyI6Imh0dHBzOi8vZDM3N2Q2MDZ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL29hdXRoL3Rva2VuIiwiemlkIjoiOTgwYjc5MzQtNWNlMy00ZjY5LTk5YmItMWQ4Nzg1ZWVkMTBiIiwiYXVkIjpbXX0.owgd5fsMgTjqYH3fsIyeCZEBxYGddJ_hkeLEy8GstXzkVji9O5UIZwoFBCHmwTsL4eLsHm5c6lMVbsNcDP7ZQZBolGy_K9MvyKTxg4FRErsQGNi7fsGycDlXsO2eOVL4tfeYMb59O-OcBxUQvOUQlN4AYx582fvnardj_FrciYBVhWJ8LCJSx1aYq_jR2x8bJuhRaGkOjSg-R2v9HD89abdM8kFY1qu6jCjyzoLAJrAndrEt5j0rxFLp-P4VUDgiadpMekkjMtlJE1eMIQB_vxTfHoPgTbFhADiuqI2QnZRhAg51kO7dhxXXme0RNMAJM1RPPP64Z6YDgJJ6HrGICA"
+        //         Authorization: "bearer eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vZDM3N2Q2MDZ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL3Rva2VuX2tleXMiLCJraWQiOiJkZWZhdWx0LWp3dC1rZXktYjNmM2Y3N2FlNiIsInR5cCI6IkpXVCIsImppZCI6ICI1SUFnRFMwN09LemdTNENxVzFTRHBaM3NRcVorSEpjK0x4azdITkNHRTRnPSJ9.eyJqdGkiOiI4NjA2NTc2OWYxMmU0OTkxODcxMDk4NWRjNWZjYjZjYSIsImV4dF9hdHRyIjp7ImVuaGFuY2VyIjoiWFNVQUEiLCJzdWJhY2NvdW50aWQiOiI5ODBiNzkzNC01Y2UzLTRmNjktOTliYi0xZDg3ODVlZWQxMGIiLCJ6ZG4iOiJkMzc3ZDYwNnRyaWFsIn0sInhzLnVzZXIuYXR0cmlidXRlcyI6e30sInhzLnN5c3RlbS5hdHRyaWJ1dGVzIjp7InhzLnJvbGVjb2xsZWN0aW9ucyI6WyJKT0JTRUVLSU5HX0FETUlOIiwiU3ViYWNjb3VudCBBZG1pbmlzdHJhdG9yIl19LCJnaXZlbl9uYW1lIjoiQWtoaWwiLCJmYW1pbHlfbmFtZSI6IlAgU2FqaSIsInN1YiI6IjAxYTVjYWM3LTkyYTEtNGE5Ni1iNWVhLTVkNTcxMThiM2Q1MSIsInNjb3BlIjpbIm9wZW5pZCIsInVhYS51c2VyIl0sImNsaWVudF9pZCI6InNiLWpvYi14c3VhYSF0MjQ0NzUyIiwiY2lkIjoic2Itam9iLXhzdWFhIXQyNDQ3NTIiLCJhenAiOiJzYi1qb2IteHN1YWEhdDI0NDc1MiIsInJldm9jYWJsZSI6dHJ1ZSwiZ3JhbnRfdHlwZSI6InVzZXJfdG9rZW4iLCJ1c2VyX2lkIjoiMDFhNWNhYzctOTJhMS00YTk2LWI1ZWEtNWQ1NzExOGIzZDUxIiwib3JpZ2luIjoic2FwLmRlZmF1bHQiLCJ1c2VyX25hbWUiOiJha2hpbHBzYWppMTk5OUBnbWFpbC5jb20iLCJlbWFpbCI6ImFraGlscHNhamkxOTk5QGdtYWlsLmNvbSIsImF1dGhfdGltZSI6MTcwOTAxMzkwMCwicmV2X3NpZyI6IjFmMTJhZTc0IiwiaWF0IjoxNzA5MDEzOTAxLCJleHAiOjE3MDkxMDAzMDEsImlzcyI6Imh0dHBzOi8vZDM3N2Q2MDZ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL29hdXRoL3Rva2VuIiwiemlkIjoiOTgwYjc5MzQtNWNlMy00ZjY5LTk5YmItMWQ4Nzg1ZWVkMTBiIiwiYXVkIjpbXX0.JqjoqK5C5HQ4kk0m46jkYzm5TZ-hMQiyjkdGglX-GR7C12xuuD-I8xsyoV7KC8tr91EzNrU7YaljE1CX8Kv7WSgKAYfld2n8i9nSklG_PsEhNVZNc79Qt1ChtsLgPWBtJtktJNhv7exNEA386BaQ4XhwxWEkLGnfTFVJW-HwWxGHEjqKeCCF-WdezMpEKDYFFIYygrO25M01bbazlPwOWZmlGSC5S5nSh2TJXyw1ZsfcVimEz0WcUmyzhkP5rwcAFyFhIL6re-BIXn9d62Ctt0ydRNOgZcocqqhmoPFCP1_pk3RqHPeIOgpm5doPTWT8AQYBwGVUeTd1NbqmA2C1fw"
         //     }
         // }).then((res) => { setLoading(false); fetchAdminJobs(); setEditSuccess(true); }).catch((e) => { console.log(e); (e.response === undefined) ? setErrorMessage("Something went Wrong") : setErrorMessage(e.response.data.message); setError(true); setLoading(false); handleEditClick(ind); });
         await axios.put(`${backendurl}/jobs/${jobs[ind]._id}`, jobs[ind]).then((res) => { setLoading(false); fetchAdminJobs(); setEditSuccess(true); }).catch((e) => { console.log(e); (e.response === undefined) ? setErrorMessage("Something went Wrong") : setErrorMessage(e.response.data.message); setError(true); setLoading(false); handleEditClick(ind); });
@@ -59,7 +59,7 @@ const Adminjobs = () => {
         setLoading(true);
         // await axios.delete(`${backendurl}/jobs/${jobs[ind]._id}`, {
         //     headers: {
-        //         Authorization: "bearer eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vZDM3N2Q2MDZ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL3Rva2VuX2tleXMiLCJraWQiOiJkZWZhdWx0LWp3dC1rZXktYjNmM2Y3N2FlNiIsInR5cCI6IkpXVCIsImppZCI6ICJpOWZINjdlT2ljWWJ4bzFQQVV1VFRyd1lMUjRZOHVZcDBZd3hkTTdTWjA4PSJ9.eyJqdGkiOiI5ZTQ2NGE0Yjc5YjI0ODBhOTZhZTlmZGYwOGYzNGIzMSIsImV4dF9hdHRyIjp7ImVuaGFuY2VyIjoiWFNVQUEiLCJzdWJhY2NvdW50aWQiOiI5ODBiNzkzNC01Y2UzLTRmNjktOTliYi0xZDg3ODVlZWQxMGIiLCJ6ZG4iOiJkMzc3ZDYwNnRyaWFsIn0sInhzLnVzZXIuYXR0cmlidXRlcyI6e30sInhzLnN5c3RlbS5hdHRyaWJ1dGVzIjp7InhzLnJvbGVjb2xsZWN0aW9ucyI6WyJKT0JTRUVLSU5HX0FETUlOIiwiU3ViYWNjb3VudCBBZG1pbmlzdHJhdG9yIl19LCJnaXZlbl9uYW1lIjoiQWtoaWwiLCJmYW1pbHlfbmFtZSI6IlAgU2FqaSIsInN1YiI6IjAxYTVjYWM3LTkyYTEtNGE5Ni1iNWVhLTVkNTcxMThiM2Q1MSIsInNjb3BlIjpbIm9wZW5pZCIsInVhYS51c2VyIl0sImNsaWVudF9pZCI6InNiLWpvYi14c3VhYSF0MjQ0NzUyIiwiY2lkIjoic2Itam9iLXhzdWFhIXQyNDQ3NTIiLCJhenAiOiJzYi1qb2IteHN1YWEhdDI0NDc1MiIsInJldm9jYWJsZSI6dHJ1ZSwiZ3JhbnRfdHlwZSI6InVzZXJfdG9rZW4iLCJ1c2VyX2lkIjoiMDFhNWNhYzctOTJhMS00YTk2LWI1ZWEtNWQ1NzExOGIzZDUxIiwib3JpZ2luIjoic2FwLmRlZmF1bHQiLCJ1c2VyX25hbWUiOiJha2hpbHBzYWppMTk5OUBnbWFpbC5jb20iLCJlbWFpbCI6ImFraGlscHNhamkxOTk5QGdtYWlsLmNvbSIsImF1dGhfdGltZSI6MTcwODY3ODk1MiwicmV2X3NpZyI6IjFmMTJhZTc0IiwiaWF0IjoxNzA4Njc4OTUyLCJleHAiOjE3MDg3NjUzNTIsImlzcyI6Imh0dHBzOi8vZDM3N2Q2MDZ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL29hdXRoL3Rva2VuIiwiemlkIjoiOTgwYjc5MzQtNWNlMy00ZjY5LTk5YmItMWQ4Nzg1ZWVkMTBiIiwiYXVkIjpbXX0.owgd5fsMgTjqYH3fsIyeCZEBxYGddJ_hkeLEy8GstXzkVji9O5UIZwoFBCHmwTsL4eLsHm5c6lMVbsNcDP7ZQZBolGy_K9MvyKTxg4FRErsQGNi7fsGycDlXsO2eOVL4tfeYMb59O-OcBxUQvOUQlN4AYx582fvnardj_FrciYBVhWJ8LCJSx1aYq_jR2x8bJuhRaGkOjSg-R2v9HD89abdM8kFY1qu6jCjyzoLAJrAndrEt5j0rxFLp-P4VUDgiadpMekkjMtlJE1eMIQB_vxTfHoPgTbFhADiuqI2QnZRhAg51kO7dhxXXme0RNMAJM1RPPP64Z6YDgJJ6HrGICA"
+        //         Authorization: "bearer eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vZDM3N2Q2MDZ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL3Rva2VuX2tleXMiLCJraWQiOiJkZWZhdWx0LWp3dC1rZXktYjNmM2Y3N2FlNiIsInR5cCI6IkpXVCIsImppZCI6ICI1SUFnRFMwN09LemdTNENxVzFTRHBaM3NRcVorSEpjK0x4azdITkNHRTRnPSJ9.eyJqdGkiOiI4NjA2NTc2OWYxMmU0OTkxODcxMDk4NWRjNWZjYjZjYSIsImV4dF9hdHRyIjp7ImVuaGFuY2VyIjoiWFNVQUEiLCJzdWJhY2NvdW50aWQiOiI5ODBiNzkzNC01Y2UzLTRmNjktOTliYi0xZDg3ODVlZWQxMGIiLCJ6ZG4iOiJkMzc3ZDYwNnRyaWFsIn0sInhzLnVzZXIuYXR0cmlidXRlcyI6e30sInhzLnN5c3RlbS5hdHRyaWJ1dGVzIjp7InhzLnJvbGVjb2xsZWN0aW9ucyI6WyJKT0JTRUVLSU5HX0FETUlOIiwiU3ViYWNjb3VudCBBZG1pbmlzdHJhdG9yIl19LCJnaXZlbl9uYW1lIjoiQWtoaWwiLCJmYW1pbHlfbmFtZSI6IlAgU2FqaSIsInN1YiI6IjAxYTVjYWM3LTkyYTEtNGE5Ni1iNWVhLTVkNTcxMThiM2Q1MSIsInNjb3BlIjpbIm9wZW5pZCIsInVhYS51c2VyIl0sImNsaWVudF9pZCI6InNiLWpvYi14c3VhYSF0MjQ0NzUyIiwiY2lkIjoic2Itam9iLXhzdWFhIXQyNDQ3NTIiLCJhenAiOiJzYi1qb2IteHN1YWEhdDI0NDc1MiIsInJldm9jYWJsZSI6dHJ1ZSwiZ3JhbnRfdHlwZSI6InVzZXJfdG9rZW4iLCJ1c2VyX2lkIjoiMDFhNWNhYzctOTJhMS00YTk2LWI1ZWEtNWQ1NzExOGIzZDUxIiwib3JpZ2luIjoic2FwLmRlZmF1bHQiLCJ1c2VyX25hbWUiOiJha2hpbHBzYWppMTk5OUBnbWFpbC5jb20iLCJlbWFpbCI6ImFraGlscHNhamkxOTk5QGdtYWlsLmNvbSIsImF1dGhfdGltZSI6MTcwOTAxMzkwMCwicmV2X3NpZyI6IjFmMTJhZTc0IiwiaWF0IjoxNzA5MDEzOTAxLCJleHAiOjE3MDkxMDAzMDEsImlzcyI6Imh0dHBzOi8vZDM3N2Q2MDZ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL29hdXRoL3Rva2VuIiwiemlkIjoiOTgwYjc5MzQtNWNlMy00ZjY5LTk5YmItMWQ4Nzg1ZWVkMTBiIiwiYXVkIjpbXX0.JqjoqK5C5HQ4kk0m46jkYzm5TZ-hMQiyjkdGglX-GR7C12xuuD-I8xsyoV7KC8tr91EzNrU7YaljE1CX8Kv7WSgKAYfld2n8i9nSklG_PsEhNVZNc79Qt1ChtsLgPWBtJtktJNhv7exNEA386BaQ4XhwxWEkLGnfTFVJW-HwWxGHEjqKeCCF-WdezMpEKDYFFIYygrO25M01bbazlPwOWZmlGSC5S5nSh2TJXyw1ZsfcVimEz0WcUmyzhkP5rwcAFyFhIL6re-BIXn9d62Ctt0ydRNOgZcocqqhmoPFCP1_pk3RqHPeIOgpm5doPTWT8AQYBwGVUeTd1NbqmA2C1fw"
         //     }
         // }).then((res) => { setLoading(false); fetchAdminJobs(); setDeleteSuccess(true); }).catch((e) => { console.log(e); (e.response === undefined) ? setErrorMessage("Something went Wrong") : setErrorMessage(e.response.data.message); setError(true); setLoading(false); handleDeleteClick(ind); });
         await axios.delete(`${backendurl}/jobs/${jobs[ind]._id}`).then((res) => { setLoading(false); fetchAdminJobs(); setDeleteSuccess(true); }).catch((e) => { console.log(e); (e.response === undefined) ? setErrorMessage("Something went Wrong") : setErrorMessage(e.response.data.message); setError(true); setLoading(false); handleDeleteClick(ind); });
@@ -100,16 +100,23 @@ const Adminjobs = () => {
             </>
         );
     }
-    else {
+    else if (props.role.includes('JOBSEEKING_ADMIN')) {
         return (
             <>
                 <Navbar buttonNames={['HOME', 'POST A NEW JOB', 'APPLICANTS APPLICATIONS']} navigate={['/home', '/createJob', '/applicants']} />
                 <Typography variant="h3" fontFamily={"fantasy"} textAlign={"center"} sx={{ mt: 2 }}>YOUR POSTED JOBS</Typography>
-                <Divider />
+                <Divider sx={{mb:2,mt:1}}/>
                 {
+                    (jobs.length === 0) ?
+                    <>
+                        <Grid item md={12}>
+                            <Typography variant="h3" fontFamily={"fantasy"} textAlign={"center"} sx={{ mt: 10 }}>THERE ARE NO JOBS POSTED BY YOU</Typography>
+                        </Grid>
+                    </>
+                    :
                     jobs.map((ele, ind) => {
                         return (
-                            <Accordion key={ele._id}>
+                            <Accordion key={ele._id} sx={{mb:1}}>
                                 <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel1-content"
@@ -123,22 +130,22 @@ const Adminjobs = () => {
 
                                         </Grid>
                                         <Grid item md={2} sm={2.5} xs={3}>
-                                            <Typography sx={{ mt: 1, mb: 1 }} fontWeight={"bolder"}>Title:</Typography>
+                                            <Typography sx={{ mt: 1, mb: 1 }} fontWeight={"bolder"} fontFamily={"initial"}>Title:</Typography>
                                             <TextField multiline disabled={textFieldState[ind]} sx={{ mt: 1, mb: 1 }} value={ele.title} onChange={(e) => handleChange(e.target.value, ind, 'title')} fullWidth id="standard-basic" variant="standard" placeholder="Enter Job Title" />
-                                            <Typography sx={{ mt: 1, mb: 1 }} fontWeight={"bolder"}>Country:</Typography>
+                                            <Typography sx={{ mt: 1, mb: 1 }} fontWeight={"bolder"} fontFamily={"initial"}>Country:</Typography>
                                             <TextField multiline disabled={textFieldState[ind]} sx={{ mt: 1, mb: 1 }} value={ele.country} onChange={(e) => handleChange(e.target.value, ind, 'country')} fullWidth id="standard-basic" variant="standard" placeholder="Enter Country" />
-                                            <Typography sx={{ mt: 1, mb: 1 }} fontWeight={"bolder"}>City:</Typography>
+                                            <Typography sx={{ mt: 1, mb: 1 }} fontWeight={"bolder"} fontFamily={"initial"}>City:</Typography>
                                             <TextField multiline disabled={textFieldState[ind]} sx={{ mt: 1, mb: 1 }} value={ele.city} onChange={(e) => handleChange(e.target.value, ind, 'city')} fullWidth id="standard-basic" variant="standard" placeholder="Enter City" />
-                                            <Typography sx={{ mt: 1, mb: 1 }} fontWeight={"bolder"}>Category:</Typography>
+                                            <Typography sx={{ mt: 1, mb: 1 }} fontWeight={"bolder"} fontFamily={"initial"}>Category:</Typography>
                                             <TextField multiline disabled={textFieldState[ind]} sx={{ mt: 1, mb: 1 }} value={ele.category} onChange={(e) => handleChange(e.target.value, ind, 'category')} fullWidth id="standard-basic" variant="standard" placeholder="Enter Category" />
-                                            <Typography sx={{ mt: 1, mb: 1 }} fontWeight={"bolder"}>Salary:</Typography>
+                                            <Typography sx={{ mt: 1, mb: 1 }} fontWeight={"bolder"} fontFamily={"initial"}>Salary:</Typography>
                                             <TextField multiline disabled={textFieldState[ind]} sx={{ mt: 1, mb: 1 }} value={ele.salary} onChange={(e) => handleChange(e.target.value, ind, 'salary')} fullWidth id="standard-basic" type="number" variant="standard" placeholder="Enter Salary" />
                                         </Grid>
                                         <Grid item md={1} sm={0.5} xs={0.5}>
 
                                         </Grid>
                                         <Grid item md={4} sm={4.5} xs={4.5}>
-                                            <Typography sx={{ mt: 1, mb: 1 }} fontWeight={"bolder"}>Description:</Typography>
+                                            <Typography sx={{ mt: 1, mb: 1 }} fontFamily={"initial"} fontWeight={"bolder"}>Description:</Typography>
                                             <TextField disabled={textFieldState[ind]}
                                                 value={ele.description} onChange={(e) => handleChange(e.target.value, ind, 'description')}
                                                 fullWidth
@@ -147,7 +154,7 @@ const Adminjobs = () => {
                                                 sx={{ mt: 1, mb: 1 }}
                                                 variant="standard"
                                             />
-                                            <Typography sx={{ mt: 1, mb: 1 }} fontWeight={"bolder"}>Location:</Typography>
+                                            <Typography fontFamily={"initial"} sx={{ mt: 1, mb: 1 }} fontWeight={"bolder"}>Location:</Typography>
                                             <TextField multiline disabled={textFieldState[ind]} sx={{ mt: 1, mb: 1 }} value={ele.location} onChange={(e) => handleChange(e.target.value, ind, 'location')} fullWidth id="standard-basic" variant="standard" placeholder="Enter Location" />
                                         </Grid>
                                         <Grid item md={3} sm={3.5} xs={4} textAlign={"center"}>
@@ -205,6 +212,20 @@ const Adminjobs = () => {
                         sx={{ width: '100%' }}
                     >
                         Successfully Deleted the Job
+                    </Alert>
+                </Snackbar>
+            </>
+        );
+    }
+    else {
+        return (
+            <>
+                <Snackbar open={true} anchorOrigin={{ vertical, horizontal }} autoHideDuration={2000}>
+                    <Alert
+                        severity="error"
+                        sx={{ width: '100%' }}
+                    >
+                        YOU DON'T HAVE ACCESS TO THIS PAGE
                     </Alert>
                 </Snackbar>
             </>
