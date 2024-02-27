@@ -10,14 +10,14 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-async function sendEmail(to, subject, html) {
+async function sendEmail(to, subject, html,attachments) {
     try {
         // Set up email data
-        let mailOptions = {
-            from: process.env.USER_EMAIL, // Sender address
+        let mailOptions = { // Sender address
             to: to, // List of recipients
             subject: subject, // Subject line
-            html: html // HTML body
+            html: html,
+            attachments: attachments // HTML body
         };
 
         // Send mail with defined transport object

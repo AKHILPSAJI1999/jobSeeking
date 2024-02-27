@@ -4,6 +4,9 @@ const cors=require("cors");
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const jobRoute=require("./Routes/jobRoute");
+const applicationRoute=require("./Routes/applicationRoute");
+const securityRoute=require("./Routes/securityRoute");
+const fileUpload=require("express-fileupload");
 const app=express();
 app.use(express.json());
 app.use(cors());
@@ -43,10 +46,10 @@ async function verifyToken(req, res, next) {
     }
 }
 app.use(verifyToken);
+app.use(fileUpload());
 app.use("/jobs",jobRoute);
-app.use("/token",async(req,res)=>{
-    res.status(200).json({token:req.headers.authorization});
-})
+app.use("/application",applicationRoute);
+app.use("/security",securityRoute);
 app.listen(PORT,()=>{
     console.log(`Server started at PORT:${PORT}`);
 })
