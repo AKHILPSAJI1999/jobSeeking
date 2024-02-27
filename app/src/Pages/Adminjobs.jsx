@@ -103,7 +103,7 @@ const Adminjobs = (props) => {
     else if (props.role.includes('JOBSEEKING_ADMIN')) {
         return (
             <>
-                <Navbar buttonNames={['HOME', 'POST A NEW JOB', 'APPLICANTS APPLICATIONS']} navigate={['/home', '/createJob', '/applicants']} />
+                <Navbar buttonNames={['HOME', 'POST A NEW JOB', 'APPLICANTS APPLICATIONS']} navigate={['/home', '/createJob', '/myapplications']} />
                 <Typography variant="h3" fontFamily={"fantasy"} textAlign={"center"} sx={{ mt: 2 }}>YOUR POSTED JOBS</Typography>
                 <Divider sx={{mb:2,mt:1}}/>
                 {

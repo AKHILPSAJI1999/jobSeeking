@@ -55,7 +55,7 @@ const Jobcreate = (props) => {
     if (props.role.includes('JOBSEEKING_ADMIN')) {
         return (
             <>
-                <Navbar buttonNames={['HOME', 'VIEW YOUR JOBS', 'APPLICANTS APPLICATIONS']} navigate={['/home', '/viewJobs', '/applicants']} />
+                <Navbar buttonNames={['HOME', 'VIEW YOUR JOBS', 'APPLICANTS APPLICATIONS']} navigate={['/home', '/viewJobs', '/myapplications']} />
                 <Typography variant="h3" fontFamily={"fantasy"} textAlign={"center"} sx={{ mt: 10 }}>POST A NEW JOB</Typography>
                 <Divider />
                 <Grid container>

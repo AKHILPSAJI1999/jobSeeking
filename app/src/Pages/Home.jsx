@@ -52,7 +52,7 @@ const Home = (props) => {
         return (
             <>
                 {
-                    (props.role.includes('JOBSEEKING_ADMIN')) ? <Navbar buttonNames={['VIEW YOUR JOBS', 'POST A NEW JOB', 'APPLICANTS APPLICATIONS']} navigate={['/viewJobs', '/createJob', '/applicants']} /> : <Navbar buttonNames={['MY APPLICATIONS']} navigate={['/myapplications']} />
+                    (props.role.includes('JOBSEEKING_ADMIN')) ? <Navbar buttonNames={['VIEW YOUR JOBS', 'POST A NEW JOB', 'APPLICANTS APPLICATIONS']} navigate={['/viewJobs', '/createJob', '/myapplications']} /> : <Navbar buttonNames={['MY APPLICATIONS']} navigate={['/myapplications']} />
                 }
                 <Typography variant="h3" fontFamily={"fantasy"} textAlign={"center"} sx={{ mt: 10 }}>ALL JOBS</Typography>
                 <Divider />
