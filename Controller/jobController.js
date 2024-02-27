@@ -1,4 +1,5 @@
 const jobModel = require("../Model/jobModel");
+const applicationModel = require("../Model/applicationModel");
 const email = require("./email");
 const jwt = require('jsonwebtoken');
 exports.getAllJobs = async (req, res) => {
@@ -205,6 +206,10 @@ exports.deleteJob = async (req, res) => {
   try {
     const job=await jobModel.findById(req.params.id);
     const deletedJob = await jobModel.findByIdAndDelete(req.params.id);
+    const applications=await applicationModel.find({jobId:req.params.id});
+    for (const application of applications){
+      await applicationModel.findByIdAndDelete(application._id);
+    }
     const result = email.sendEmail(job.createdBy, `DELETED THE JOB : ${job.title}`, `<html>
           <head>
           <style>

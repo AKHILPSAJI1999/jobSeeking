@@ -4,7 +4,7 @@ const applicationModel = require("../Model/applicationModel");
 const jwt = require('jsonwebtoken');
 exports.getAllApplications = async (req, res) => {
   try {
-    const applications = await applicationModel.find();
+    const applications = await applicationModel.find({createdBy:jwt.decode(req.headers.authorization.split(" ")[1], { complete: true })?.payload?.email});
     res.status(200).json({
       statusCode: 200,
       message: "Successfully fetched application Details",
@@ -194,7 +194,7 @@ exports.rejectApplication = async (req, res) => {
         application.status = 'Rejected';
         const savedUpdatedApplication = await applicationModel.findByIdAndUpdate(application._id, application, { new: true });
         const message = "<h1>Thank you for rejecting the request Admin.The email has been sent to the applicant.</h1>";
-        const result = email.sendEmail(application.createdBy, `APPLICATION ACCEPTED`, `<html>
+        const result = email.sendEmail(application.createdBy, `APPLICATION REJECTED`, `<html>
           <head>
           <style>
           table, th, td {
@@ -220,6 +220,41 @@ exports.rejectApplication = async (req, res) => {
       const message = "<h1>Sorry but you don't have access for this URL</h1>";
       res.status(200).send(message);
     }
+  } catch (e) {
+    res.status(500).json({
+      statusCode: 500,
+      message: e.message,
+      data: null
+    })
+  }
+}
+exports.getApplicationsByJobEmail = async (req, res) => {
+  try {
+    const applications = await applicationModel.find().populate({
+      path: 'jobId',
+      match: {createdBy:jwt.decode(req.headers.authorization.split(" ")[1], { complete: true })?.payload?.email}
+    });
+    res.status(200).json({
+      statusCode: 200,
+      message: "Successfully fetched application Details",
+      data: applications
+    })
+  } catch (e) {
+    res.status(500).json({
+      statusCode: 500,
+      message: e.message,
+      data: null
+    })
+  }
+}
+exports.deleteApplication = async (req, res) => {
+  try {
+    const applications = await applicationModel.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      statusCode: 200,
+      message: "Successfully fetched application Details",
+      data: applications
+    })
   } catch (e) {
     res.status(500).json({
       statusCode: 500,
